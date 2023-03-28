@@ -1,7 +1,7 @@
 import cv2
 import os
 
-def get_video(path:str):
+def get_image(path:str):
     print(cv2.__version__)
     print(" ======= Parsing Video data is : ", path)
     if path:
