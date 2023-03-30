@@ -1,11 +1,10 @@
 import torch
-from CLIP import clip
+import clip
 from PIL import Image
 
-def init():
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    model, preprocess = clip.load("ViT-B/32", device=device)
-    
+device = "cuda" if torch.cuda.is_available() else "cpu"
+model, preprocess = clip.load("ViT-B/32", device=device)
+
 def clip_api(image_path):
     image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
     labels = [
