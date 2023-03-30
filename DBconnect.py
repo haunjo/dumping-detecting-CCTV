@@ -26,4 +26,3 @@ for images in dir_list[1:]:
         cur.execute(sql)
         conn.commit()
 conn.close()
-

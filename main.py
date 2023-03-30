@@ -1,5 +1,6 @@
-from data import ParseVideo
+from data import ImageFromVideo
+from data import ImageFromCam
 
 
-
-ParseVideo.get_video('data/video/2023032319.mov')
+#ImageFromVideo.get_image('data/video/2023032319.mov')
+ImageFromCam.get_image()
