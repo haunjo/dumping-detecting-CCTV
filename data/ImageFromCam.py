@@ -32,7 +32,7 @@ def get_image():
         cv2.imshow('CCTV', img)
         if cv2.waitKey(1):
             tm = localtime()
-            capturedtime = strftime('%Y_%m_%d_%I%M%S%P', tm)
+            capturedtime = strftime('%Y_%m_%d_%H%M%S', tm)
             img_captured = cv2.imwrite(f'data/images/{timestamp}/{capturedtime}.jpg', img)
         if cv2.waitKey(1) == ord('q'):
             break
