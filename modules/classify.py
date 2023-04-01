@@ -9,7 +9,7 @@ model, preprocess = clip.load("ViT-B/32", device=device)
 def classify(image_path):
     image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
     labels = [
-        'dupming trash',
+        'dumping trash',
         'walking',
         'smoking',
         'sitting',
