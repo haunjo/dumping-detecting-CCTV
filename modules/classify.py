@@ -3,33 +3,36 @@ import torch
 from clip import clip
 from PIL import Image
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-model, preprocess = clip.load("ViT-B/32", device=device)
+class Classifier():
+    def __init__(self):
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.model, self.preprocess = clip.load("ViT-B/32", device=self.device)
+        
+        self.labels = [
+            'dumping trash',
+            'walking',
+            'smoking',
+            'sitting',
+        ]
+        
+        self.text = [f"a photo of a person {label}" for label in self.labels]
+        self.tokens = clip.tokenize(self.text).to(self.device)
 
-def classify(image_path):
-    image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
-    labels = [
-        'dumping trash',
-        'walking',
-        'smoking',
-        'sitting',
-    ]
-    
-    text = [f"a photo of a person {label}" for label in labels]
-    tokens = clip.tokenize(text).to(device)
+    def classify(self, source):
+        image = self.preprocess(Image.open(source)).unsqueeze(0).to(self.device)
 
-    with torch.no_grad():
-        image_features = model.encode_image(image)
-        text_features = model.encode_text(tokens)
+        with torch.no_grad():
+            image_features = self.model.encode_image(image)
+            text_features = self.model.encode_text(self.tokens)
 
-        logits_per_image, logits_per_text = model(image, tokens)
-        probs = logits_per_image.softmax(dim=-1)
+            logits_per_image, logits_per_text = self.model(image, self.tokens)
+            probs = logits_per_image.softmax(dim=-1)
 
-    pred = text[torch.argmax(probs)] # text of image's class
-    
-    if pred != 'a photo of a person dumping trash':
-        try:
-            os.remove(image_path)
-            print("the image is removed.")
-        except FileNotFoundError as e:
-            print(e)
+        pred = self.text[torch.argmax(probs)] # text of image's class
+        
+        if pred != 'a photo of a person dumping trash':
+            try:
+                os.remove(source)
+                print("the image is removed.")
+            except FileNotFoundError as e:
+                print(e)
