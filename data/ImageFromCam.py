@@ -13,33 +13,34 @@ def get_image():
         print("Could not Open Camera:")
         exit(0)
     
-    
+
     currunt_time = localtime()
-    timestamp = strftime('%Y_%m_%d_%I', currunt_time)
-    
+    timestamp = strftime('%Y_%m_%d_%H', currunt_time)
+
     try:
         if not os.path.exists(timestamp):
             os.makedirs("data/images/"+timestamp)
     except OSError:
         print("Directory is already exists : " + timestamp)
     
-    
+
     while True:
         ret, img = cam.read()
         if not ret:
-            print( "Can't read Camera")
-            break
-        cv2.imshow('CCTV', img)
-        if cv2.waitKey(1):
-            tm = localtime()
-            capturedtime = strftime('%Y_%m_%d_%I%M%S%P', tm)
-            img_captured = cv2.imwrite(f'data/images/{timestamp}/{capturedtime}.jpg', img)
-        if cv2.waitKey(1) == ord('q'):
+            print("Can't read Camera")
             break
         
-    
-    
-    
+        cv2.imshow('CCTV', img)
+        
+        if cv2.waitKey(1000): # 1000ms 
+            tm = localtime()
+            capturedtime = strftime('%Y_%m_%d_%H%M%S', tm)
+            cv2.imwrite(f'data/images/{timestamp}/{capturedtime}.jpg', img)
+            yield f'data/images/{timestamp}/{capturedtime}.jpg' # yield path of image
+            
+        if cv2.waitKey(1000) == ord('q'):
+            break
+
     # count = 0
     
     # while(video.isOpened()):
