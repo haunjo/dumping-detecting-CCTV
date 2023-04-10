@@ -8,7 +8,7 @@
 |no|이름|역할|
 |---|---|---|
 |1|김예훈|Detection algorithms(human object detection, Using CLIP) |
-|2|송민석|frontend, backend(user, admin interface)|
+|2|송민석|Frontend, Backend(user, admin interface)|
 |3|조하운|Data engine(ETL, Database), Infrastructure(server, API)|
 
 ## 2. Commit Rule
