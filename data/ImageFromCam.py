@@ -40,6 +40,8 @@ def get_image():
             
         if cv2.waitKey(1000) == ord('q'):
             break
+    cam.release()
+
 
     # count = 0
     
@@ -51,5 +53,9 @@ def get_image():
     #         count += 1
     #     if(ret == False):
     #         break
-    cam.release()
+
+if __name__ == "__main__":
+    print("hello")
+    get_image()
+    
 
