@@ -35,16 +35,16 @@ public class MemberController {
     }
 
     @PostMapping("/member/login")
-    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session, HttpServletRequest request) {
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpServletRequest request) {
         MemberDTO loginResult = memberService.login(memberDTO);
 //        System.out.println(memberDTO);
-        session = request.getSession();
-        session.setAttribute("Id", loginResult.getMemberId());
 //        System.out.println(session.getAttribute("Id"));
 
         if (loginResult != null) {
             // login 성공
 //            session.setAttribute("loginNo", loginResult.getNo());
+            HttpSession session = request.getSession();
+            session.setAttribute("Id", loginResult.getMemberId());
             return "main";
         } else {
             // login 실패
