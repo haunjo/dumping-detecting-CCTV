@@ -1,4 +1,3 @@
-import os
 import torch
 from clip import clip
 from PIL import Image
@@ -18,9 +17,8 @@ class Classifier():
         ]
         self.tokens = torch.cat([clip.tokenize(f"a photo of a person {c}") for c in self.labels]).to(self.device)
 
-    def classify(self, source):
-        image = Image.open(source)
-        image = image.resize((32, 32))
+    def classify(self, source: Image.Image) -> str:
+        image = source.resize((32, 32))
         image = self.preprocess(image).unsqueeze(0).to(self.device)
 
         with torch.no_grad():
