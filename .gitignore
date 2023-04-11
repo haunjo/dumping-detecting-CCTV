@@ -1,4 +1,11 @@
 venv/
+
 __pycache__/
 *.jpg
 .Ds_Store
+*.pt
+data/images/*
+data/video/*
+.ipynb_checkpoints/
+*.ipynb
+
