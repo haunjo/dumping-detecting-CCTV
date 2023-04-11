@@ -9,30 +9,34 @@ class Classifier():
         self.model, self.preprocess = clip.load("ViT-B/32", device=self.device)
         
         self.labels = [
-            'dumping trash',
-            'walking',
-            'smoking',
-            'sitting',
+            "Standing",
+            "Running",
+            "Smoking",
+            "Dumping",
+            "Throwing",
+            "Fighting"
         ]
-        
-        self.text = [f"a photo of a person {label}" for label in self.labels]
-        self.tokens = clip.tokenize(self.text).to(self.device)
+        self.tokens = torch.cat([clip.tokenize(f"a photo of a person {c}") for c in self.labels]).to(self.device)
 
     def classify(self, source):
-        image = self.preprocess(Image.open(source)).unsqueeze(0).to(self.device)
+        image = Image.open(source)
+        image = image.resize((32, 32))
+        image = self.preprocess(image).unsqueeze(0).to(self.device)
 
         with torch.no_grad():
             image_features = self.model.encode_image(image)
             text_features = self.model.encode_text(self.tokens)
 
-            logits_per_image, logits_per_text = self.model(image, self.tokens)
-            probs = logits_per_image.softmax(dim=-1)
+        # Pick the top 5 most similar labels for the image
+        image_features /= image_features.norm(dim=-1, keepdim=True)
+        text_features /= text_features.norm(dim=-1, keepdim=True)
+        similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
+        values, indices = similarity[0].topk(5)
 
-        pred = self.text[torch.argmax(probs)] # text of image's class
-        
-        if pred != 'a photo of a person dumping trash':
-            try:
-                os.remove(source)
-                print("the image is removed.")
-            except FileNotFoundError as e:
-                print(e)
+        # Print the result of top 5 most similar labels
+        # print("\nTop predictions:\n")
+        # for value, index in zip(values, indices):
+        #     print(f"{self.labels[index]:>16s}: {100 * value.item():.2f}%")
+            
+        # Return the most similar label
+        return self.labels[indices[0]]
