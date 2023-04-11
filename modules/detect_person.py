@@ -1,6 +1,3 @@
-from pathlib import Path
-import os
-
 import torch
 
 from models.experimental import attempt_load
@@ -45,10 +42,10 @@ class Detector():
         
     def detect(self, source):
         # Set Dataloader
-        self.dataset = LoadImages(source, img_size=self.imgsz, stride=self.stride)
+        dataset = LoadImages(source, img_size=self.imgsz, stride=self.stride)
 
         # Run inference
-        for path, img, im0s, _ in self.dataset:
+        for path, img, im0s, _ in dataset:
             img = torch.from_numpy(img).to(self.device)
             img = img.half() if self.half else img.float()  # uint8 to fp16/32
             img /= 255.0  # 0 - 255 to 0.0 - 1.0
@@ -65,34 +62,21 @@ class Detector():
 
             # Inference
             with torch.no_grad():   # Calculating gradients would cause a GPU memory leak
-                self.pred = self.model(img, augment=self.augment)[0]
+                pred = self.model(img, augment=self.augment)[0]
 
             # Apply NMS
-            self.pred = non_max_suppression(self.pred, self.conf_thres, self.iou_thres, classes=self.classes, agnostic=self.agnostic_nms)
+            pred = non_max_suppression(pred, self.conf_thres, self.iou_thres, classes=self.classes, agnostic=self.agnostic_nms)
 
             # Apply Classifier
             if self.classify:
-                self.pred = apply_classifier(self.pred, self.modelc, img, im0s)
+                pred = apply_classifier(self.pred, self.modelc, img, im0s)
 
             # Process detections
-            has_person = 0 
-            for det in self.pred:  # detections per image
-                p, im0 = path, im0s
-
-                p = Path(p)  # to Path
+            for det in pred:  # detections per image
+                im0 = im0s
                 if len(det):
                     # Rescale boxes from img_size to im0 size
                     det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
- 
-                    # Print results
-                    for c in det[:, -1].unique():
-                        if not has_person and self.names[int(c)] == 'person':
-                            has_person = 1
-            
-            # remove the image if it has no any person.
-            if not has_person:
-                try:
-                    os.remove(path)
-                    print("the image is removed.")
-                except FileNotFoundError as e:
-                    print(e)
+                  
+            # return the results of detection (*xyxy, conf, cls)
+            return det
