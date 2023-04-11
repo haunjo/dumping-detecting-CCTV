@@ -40,7 +40,7 @@ class Detector():
         self.old_img_w = self.old_img_h = self.imgsz
         self.old_img_b = 1
         
-    def detect(self, source):
+    def detect(self, source: str) -> torch.Tensor:
         # Set Dataloader
         dataset = LoadImages(source, img_size=self.imgsz, stride=self.stride)
 
