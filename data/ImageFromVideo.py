@@ -1,5 +1,7 @@
 import cv2
 import os
+from time import localtime
+from time import strftime
 
 def get_image(path:str):
     print(cv2.__version__)
@@ -25,20 +27,25 @@ def get_image(path:str):
     print("height :", height)
     print("fps :", fps, "\n")
 
+    currunt_time = localtime()
+    timestamp = strftime('%Y_%m_%d_%H', currunt_time)
     try:
-        if not os.path.exists(filepath[-10:-4]):
-            os.makedirs("data/images/"+filepath[-10:-4])
+        if not os.path.exists(timestamp):
+            os.makedirs("data/images/"+timestamp)
     except OSError:
-        print("Directory is already exists : " + filepath[-10:-4])
+        print("Directory is already exists : " + timestamp)
     
     count = 0
     
     while(video.isOpened()):
-        ret, frame = video.read()
+        ret, img = video.read()
         if(int(video.get(1))% int(fps) == 0):
-            cv2.imwrite("data/images/" + filepath[-10:-4] + f"/{filepath[-10:-4]}%0d.jpg"% count, frame)
+            tm = localtime()
+            capturedtime = strftime('%Y_%m_%d_%H%M%S', tm)
+            cv2.imwrite(f'data/images/{timestamp}/{capturedtime}.jpg', img)
             print("Saved frame number:" , str(int(video.get(1))))
             count += 1
+            yield f'data/images/{timestamp}/{capturedtime}.jpg' # yield path of image
         if(ret == False):
             break
     video.release()
