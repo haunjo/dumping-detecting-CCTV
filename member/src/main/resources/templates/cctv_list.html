@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>cctv_list</title>
@@ -8,23 +8,29 @@
       background-color: #F2F2F2;
       font-family: Arial, sans-serif;
     }
-
+    table{
+      margin-top: 100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
     h2 {
       color: #333;
+      margin-top: 40px;
       text-align: center;
     }
   </style>
 </head>
+
 <body>
 <h2>내 CCTV</h2>
 <table>
   <tr th:each="cctv: ${cctvList}">
     <td th:text="${cctv.getCctvAlias()}"></td>
     <td>
-      <button type="button" onclick="location.href='cctv_check.html'">조회</button>
+      <a th:href="@{|/cctv/${cctv.getNo()}|}">조회</a>
     </td>
     <td>
-      <button>삭제</button>
+      <a th:href="@{|/cctv/delete/${cctv.getNo()}|}">삭제</a>
     </td>
   </tr>
 </table>

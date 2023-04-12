@@ -15,7 +15,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://ec2-43-201-101-246.ap-northeast-2.compute.amazonaws.com/SCV?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://ec2-15-164-104-81.ap-northeast-2.compute.amazonaws.com/SCV?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: minseok
     password: 1234
   thymeleaf:

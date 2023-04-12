@@ -36,7 +36,6 @@ public class MemberEntity{
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
 
-
     public static MemberEntity toMemberEntity(MemberDTO memberDTO) {
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setMemberId(memberDTO.getMemberId());

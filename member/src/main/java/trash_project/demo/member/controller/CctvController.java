@@ -5,10 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.HttpMediaTypeException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import trash_project.demo.member.dto.CctvDTO;
 import trash_project.demo.member.dto.MemberDTO;
 import trash_project.demo.member.entity.MemberEntity;
@@ -27,6 +24,7 @@ import java.util.Optional;
 public class CctvController {
     // 생성자 주입
     private final CctvService cctvService;
+    private final MemberRepository memberRepository;
 
     // cctv 등록 페이지 출력 요청
     @GetMapping("/cctv/register")
@@ -43,11 +41,20 @@ public class CctvController {
     }
 
     @GetMapping("/cctv/list")
-    public String findAll(Model model) {
-        List<CctvDTO> cctvDTOList = cctvService.findAll();
+    public String myCctv(Model model, HttpServletRequest request) {
+        HttpSession httpSession = request.getSession();
+        String loginId = (String) httpSession.getAttribute("Id");
+        MemberEntity memberEntity = memberRepository.findByMemberId(loginId).get();
+
+        List<CctvDTO> cctvDTOList = cctvService.findByMemberEntity(memberEntity);
         // 어떠한 html로 가져갈 데이터가 있다면 model 사용
         model.addAttribute("cctvList", cctvDTOList);
         return "cctv_list";
     }
 
+    @GetMapping("/cctv/{no}")
+    public String checkCctv(@PathVariable Long no, Model model){
+        model.addAttribute("no", no);
+        return "cctv_check";
+    }
 }

@@ -8,6 +8,7 @@ import trash_project.demo.member.entity.MemberEntity;
 import trash_project.demo.member.repository.CctvRepository;
 import trash_project.demo.member.repository.MemberRepository;
 
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +25,18 @@ public class CctvService {
         cctvEntity.setMemberEntity(memberEntity);
 //        System.out.println(cctvEntity);
         cctvRepository.save(cctvEntity);
+//        System.out.println(cctvEntity.getMemberEntity());
+//        System.out.println(cctvEntity.getMemberEntity().getMemberName());
     }
 
-    public List<CctvDTO> findAll() {
-        List<CctvEntity> cctvEntityList = cctvRepository.findAll();
+    public List<CctvDTO> findByMemberEntity(MemberEntity memberEntity) { //id는 로그인한 memberId
+        List<CctvEntity> cctvEntityList = cctvRepository.findByMemberEntity(memberEntity);
         List<CctvDTO> cctvDTOList = new ArrayList<>();
         for (CctvEntity cctvEntity : cctvEntityList) {
             cctvDTOList.add(CctvDTO.toCctvDTO(cctvEntity));
         }
         return cctvDTOList;
     }
+
+
 }
