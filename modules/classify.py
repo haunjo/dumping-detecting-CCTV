@@ -12,8 +12,7 @@ class Classifier():
             "Running",
             "Smoking",
             "Dumping",
-            "Throwing",
-            "Fighting"
+            "Sitting"
         ]
         self.tokens = torch.cat([clip.tokenize(f"a photo of a person {c}") for c in self.labels]).to(self.device)
 
@@ -32,9 +31,9 @@ class Classifier():
         values, indices = similarity[0].topk(5)
 
         # Print the result of top 5 most similar labels
-        # print("\nTop predictions:\n")
-        # for value, index in zip(values, indices):
-        #     print(f"{self.labels[index]:>16s}: {100 * value.item():.2f}%")
+        print("\nTop predictions:\n")
+        for value, index in zip(values, indices):
+            print(f"{self.labels[index]:>16s}: {100 * value.item():.2f}%")
             
         # Return the most similar label
         return self.labels[indices[0]]
