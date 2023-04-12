@@ -38,5 +38,8 @@ public class CctvService {
         return cctvDTOList;
     }
 
-
+    public void deleteCctv(Long no) {
+//        cctvRepository.deleteByNo(no);
+        cctvRepository.deleteById(no);
+    }
 }

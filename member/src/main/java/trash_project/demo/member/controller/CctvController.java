@@ -57,4 +57,10 @@ public class CctvController {
         model.addAttribute("no", no);
         return "cctv_check";
     }
+
+    @GetMapping("/cctv/delete/{no}")
+    public String deleteCctv(@PathVariable Long no){
+        cctvService.deleteCctv(no);
+        return "redirect:/cctv/list";
+    }
 }
