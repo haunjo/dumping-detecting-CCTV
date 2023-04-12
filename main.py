@@ -1,6 +1,6 @@
 from data import ImageFromVideo
 from data import ImageFromCam
-#from fastapi import FastAPI
+from fastapi import FastAPI
 
 from modules.detect_person import detect
 from modules.classify import classify
