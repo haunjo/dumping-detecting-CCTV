@@ -2,7 +2,7 @@ import ImageFromCam
 import ImageFromVideo
 import requests
 
-url =  "http://localhost:8000/files/"
+url =  "http://203.253.13.20:8000/files/"
 filename = "images/2023_04_12_191946.jpg"
 
 with open(filename, "rb") as f:

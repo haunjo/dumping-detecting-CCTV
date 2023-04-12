@@ -1,5 +1,4 @@
 venv/
-
 __pycache__/
 *.jpg
 .Ds_Store
@@ -8,4 +7,3 @@ data/images/*
 data/video/*
 .ipynb_checkpoints/
 *.ipynb
-yolov7.pt
