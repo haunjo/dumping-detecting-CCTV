@@ -7,6 +7,8 @@ from modules.detect import Detector
 from modules.classify import Classifier
 from modules.crop import crop_image
 
+
+
 import torch
 #ImageFromVideo.get_image('data/video/2023032319.mov')
 

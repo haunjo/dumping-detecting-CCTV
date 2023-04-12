@@ -13,15 +13,17 @@ def get_image():
         print("Could not Open Camera:")
         exit(0)
     
+
     currunt_time = localtime()
     timestamp = strftime('%Y_%m_%d_%H', currunt_time)
-    
+
     try:
         if not os.path.exists(timestamp):
             os.makedirs("data/images/"+timestamp)
     except OSError:
         print("Directory is already exists : " + timestamp)
     
+
     while True:
         ret, img = cam.read()
         if not ret:
@@ -38,6 +40,8 @@ def get_image():
             
         if cv2.waitKey(1000) == ord('q'):
             break
+    cam.release()
+
 
     # count = 0
     
@@ -49,5 +53,9 @@ def get_image():
     #         count += 1
     #     if(ret == False):
     #         break
-    cam.release()
+
+if __name__ == "__main__":
+    print("hello")
+    get_image()
+    
 
