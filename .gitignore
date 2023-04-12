@@ -8,4 +8,4 @@ data/images/*
 data/video/*
 .ipynb_checkpoints/
 *.ipynb
-
+yolov7.pt
