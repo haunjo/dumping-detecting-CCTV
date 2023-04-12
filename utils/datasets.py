@@ -124,7 +124,20 @@ class _RepeatSampler(object):
         while True:
             yield from iter(self.sampler)
 
+def LoadImages_fromImage(image: np.ndarray, img_size=640, stride=32):
+    img0 = image  # BGR
+    assert img0 is not None, 'Image Not Found '
+    #print(f'image {self.count}/{self.nf} {path}: ', end='')
 
+    # Padded resize
+    img = letterbox(img0, img_size, stride=stride)[0]
+
+    # Convert
+    img = img[:, :, ::-1].transpose(2, 0, 1)  # BGR to RGB, to 3x416x416
+    img = np.ascontiguousarray(img)
+
+    return img, img0
+        
 class LoadImages:  # for inference
     def __init__(self, path, img_size=640, stride=32):
         p = str(Path(path).absolute())  # os-agnostic absolute path
