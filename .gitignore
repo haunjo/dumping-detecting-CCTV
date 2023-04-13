@@ -7,3 +7,5 @@ data/images/*
 data/video/*
 .ipynb_checkpoints/
 *.ipynb
+*.mp4
+*.avi
