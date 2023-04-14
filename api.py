@@ -1,10 +1,13 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 import cv2
-import numpy as np
 import torch
 import time
 import os
+import base64
+import numpy as np
+from io import BytesIO
+from PIL import Image
 
 from data import ImageFromVideo
 from data import ImageFromCam
@@ -18,12 +21,13 @@ import torch
 app = FastAPI()
 
 @app.post("/files/")
-async def create_file(file : UploadFile):
-    content = await file.read()
+async def create_file(file : Request):
+    content = await file.json()
     human_detector = Detector()
     dumping_classifier = Classifier()
-    nparr = np.frombuffer(content, np.uint8)
-    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    img_data = base64.b64decode(content["image"])
+    pil_image = Image.open(BytesIO(img_data))
+    img = cv2.imdecode(np.array(pil_image), cv2.COLOR_RGB2BGR)
     with torch.no_grad():
         det = human_detector.detect(img)
     for i, (*xyxy, conf, cls) in enumerate(reversed(det)):
@@ -35,7 +39,7 @@ async def create_file(file : UploadFile):
                 print(cnt, pred, prob, xyxy)
                 cnt += 1
                 # code to save the image in DB
-    return JSONResponse({"filename" : file.filename})
+    return JSONResponse({"filename" : content["filename"]})
 
 @app.get("/")
 async def root():
