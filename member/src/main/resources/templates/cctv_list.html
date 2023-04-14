@@ -36,84 +36,157 @@
 <!--</table>-->
 <!--</body>-->
 <!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>cctv_list</title>-->
+<!--  <style>-->
+<!--    /* Instagram style */-->
+<!--    body {-->
+<!--      background-color: #fafafa;-->
+<!--      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;-->
+<!--      font-size: 14px;-->
+<!--      line-height: 18px;-->
+<!--      color: #262626;-->
+<!--    }-->
+
+<!--    h2 {-->
+<!--      font-weight: bold;-->
+<!--      font-size: 20px;-->
+<!--      line-height: 24px;-->
+<!--      margin-top: 24px;-->
+<!--      margin-bottom: 12px;-->
+<!--      text-align: center;-->
+<!--    }-->
+
+<!--    table {-->
+<!--      background-color: #fff;-->
+<!--      border: 1px solid #dbdbdb;-->
+<!--      border-collapse: collapse;-->
+<!--      margin: 50px auto 24px;-->
+<!--      width: 80%;-->
+<!--    }-->
+
+<!--    th, td {-->
+<!--      border: 1px solid #dbdbdb;-->
+<!--      padding: 12px;-->
+<!--      text-align: center;-->
+<!--    }-->
+
+<!--    th {-->
+<!--      background-color: #fafafa;-->
+<!--      font-weight: bold;-->
+<!--      text-align: center;-->
+<!--    }-->
+
+<!--    a {-->
+<!--      color: #3897f0;-->
+<!--      font-weight: bold;-->
+<!--      text-decoration: none;-->
+<!--    }-->
+
+<!--    a:hover {-->
+<!--      text-decoration: underline;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--<h2>내 CCTV 목록</h2>-->
+<!--<table>-->
+<!--  <thead>-->
+<!--  <tr>-->
+<!--    <th>CCTV</th>-->
+<!--    <th>조회</th>-->
+<!--    <th>수정</th>-->
+<!--    <th>삭제</th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--  <tr th:each="cctv: ${cctvList}">-->
+<!--    <td th:text="${cctv.getCctvAlias()}"></td>-->
+<!--    <td>-->
+<!--      <a th:href="@{|/cctv/${cctv.getNo()}|}">조회</a>-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <a th:href="@{|/cctv/modify/${cctv.getNo()}|}">수정</a>-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <a th:href="@{|/cctv/delete/${cctv.getNo()}|}">삭제</a>-->
+<!--    </td>-->
+<!--  </tr>-->
+<!--  </tbody>-->
+<!--</table>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>cctv_list</title>
   <style>
-    /* Instagram style */
-    body {
-      background-color: #fafafa;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      line-height: 18px;
-      color: #262626;
-    }
-
     h2 {
+      padding-top: 50px;
       font-weight: bold;
       font-size: 20px;
       line-height: 24px;
-      margin-top: 24px;
-      margin-bottom: 12px;
+      margin-top: 30px;
+      margin-bottom: 30px;
       text-align: center;
     }
-
-    table {
-      background-color: #fff;
-      border: 1px solid #dbdbdb;
-      border-collapse: collapse;
-      margin: 50px auto 24px;
-      width: 80%;
+    table{
+      margin-top: 50px;
     }
 
-    th, td {
-      border: 1px solid #dbdbdb;
-      padding: 12px;
+    th, td, tr{
       text-align: center;
     }
-
-    th {
-      background-color: #fafafa;
-      font-weight: bold;
-      text-align: center;
+    .bg{
+      background: no-repeat center fixed;
+      background-size: cover;
     }
 
-    a {
-      color: #3897f0;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
   </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
 </head>
 
-<body>
-<h2>내 CCTV 목록</h2>
-<table>
-  <thead>
-  <tr>
-    <th>CCTV</th>
-    <th>조회</th>
-    <th>삭제</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="cctv: ${cctvList}">
-    <td th:text="${cctv.getCctvAlias()}"></td>
-    <td>
-      <a th:href="@{|/cctv/${cctv.getNo()}|}">조회</a>
-    </td>
-    <td>
-      <a th:href="@{|/cctv/delete/${cctv.getNo()}|}">삭제</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<body class="bg" style="background-image: url('https://png.pngtree.com/background/20211215/original/pngtree-modern-simple-elegant-landing-page-website-background-picture-image_1455134.jpg')">
+<div class="container">
+  <h2>내 CCTV 목록</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>CCTV</th>
+      <th>조회</th>
+      <th>수정</th>
+      <th>삭제</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cctv: ${cctvList}">
+      <td th:text="${cctv.getCctvAlias()}"></td>
+      <td>
+        <a class="btn btn-info btn-sm"
+           th:href="@{|/cctv/${cctv.getNo()}|}">조회</a>
+      </td>
+      <td>
+        <a class="btn btn-warning btn-sm"
+           th:href="@{|/cctv/modify/${cctv.getNo()}|}">수정</a>
+      </td>
+      <td>
+        <a class="btn btn-danger btn-sm"
+           th:href="@{|/cctv/delete/${cctv.getNo()}|}">삭제</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 </body>
 </html>
 

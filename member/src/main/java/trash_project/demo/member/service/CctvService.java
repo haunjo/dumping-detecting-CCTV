@@ -11,6 +11,7 @@ import trash_project.demo.member.repository.MemberRepository;
 import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +42,15 @@ public class CctvService {
     public void deleteCctv(Long no) {
 //        cctvRepository.deleteByNo(no);
         cctvRepository.deleteById(no);
+    }
+
+    public CctvDTO updateForm(Long no){
+        Optional<CctvEntity> optionalCctvEntity = cctvRepository.findById(no);
+        return optionalCctvEntity.map(CctvDTO::toCctvDTO).orElse(null);
+    }
+
+    public void update(CctvDTO cctvDTO, String loginId) {
+        MemberEntity memberEntity = memberRepository.findByMemberId(loginId).get();
+        cctvRepository.save(CctvEntity.toUpdateCctvEntity(cctvDTO, memberEntity));
     }
 }

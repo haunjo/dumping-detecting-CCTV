@@ -9,6 +9,7 @@ import trash_project.demo.member.entity.MemberEntity;
 import trash_project.demo.member.repository.CctvRepository;
 import trash_project.demo.member.repository.MemberRepository;
 
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,4 +49,18 @@ public class MemberService {
         }
     }
 
+    public MemberDTO updateForm(String myId){
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberId(myId);
+        return optionalMemberEntity.map(MemberDTO::toMemberDTO).orElse(null);
+    }
+    public void update(MemberDTO memberDTO){
+//        System.out.println("**" + MemberEntity.toUpdateMemberEntity(memberDTO).getMemberId());
+//        System.out.println("**" + MemberEntity.toUpdateMemberEntity(memberDTO).getMemberPassword());
+//        System.out.println("**" + MemberEntity.toUpdateMemberEntity(memberDTO).getMemberRole());
+        memberRepository.save(MemberEntity.toUpdateMemberEntity(memberDTO));
+    }
+
+    public void deleteById(Long id){
+        memberRepository.deleteById(id);
+    }
 }

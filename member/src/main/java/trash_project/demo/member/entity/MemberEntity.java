@@ -1,13 +1,12 @@
 package trash_project.demo.member.entity;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import trash_project.demo.member.dto.MemberDTO;
-import trash_project.demo.member.repository.MemberRole;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
@@ -18,10 +17,10 @@ public class MemberEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long no;
 
-    @Column(unique = true)
+    @Column
     private String memberId;
 
-    @Column(unique = true) // unique 제약조건 추가
+    @Column // unique 제약조건 추가
     private String memberEmail;
 
     @Column
@@ -36,6 +35,9 @@ public class MemberEntity{
     @Enumerated(EnumType.STRING)
     private MemberRole memberRole;
 
+    @OneToMany(mappedBy = "memberEntity", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<CctvEntity> cctvEntityList = new ArrayList<>();
+
     public static MemberEntity toMemberEntity(MemberDTO memberDTO) {
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setMemberId(memberDTO.getMemberId());
@@ -44,6 +46,20 @@ public class MemberEntity{
         memberEntity.setMemberName(memberDTO.getMemberName());
         memberEntity.setMemberPhone(memberDTO.getMemberPhone());
         memberEntity.setMemberRole(MemberRole.USER);
+
+        return memberEntity;
+    }
+
+    public static MemberEntity toUpdateMemberEntity(MemberDTO memberDTO){
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setNo(memberDTO.getNo());
+        memberEntity.setMemberId(memberDTO.getMemberId());
+        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+        memberEntity.setMemberName(memberDTO.getMemberName());
+        memberEntity.setMemberPhone(memberDTO.getMemberPhone());
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberRole(MemberRole.USER);
+
         return memberEntity;
     }
 }

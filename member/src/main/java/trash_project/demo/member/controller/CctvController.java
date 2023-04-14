@@ -1,25 +1,22 @@
 package trash_project.demo.member.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.HttpMediaTypeException;
 import org.springframework.web.bind.annotation.*;
 import trash_project.demo.member.dto.CctvDTO;
-import trash_project.demo.member.dto.MemberDTO;
 import trash_project.demo.member.entity.MemberEntity;
 import trash_project.demo.member.repository.MemberRepository;
 import trash_project.demo.member.service.CctvService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 
 @Controller
+@RequestMapping("/cctv")
 @RequiredArgsConstructor
 public class CctvController {
     // 생성자 주입
@@ -27,10 +24,12 @@ public class CctvController {
     private final MemberRepository memberRepository;
 
     // cctv 등록 페이지 출력 요청
-    @GetMapping("/cctv/register")
-    public String registerForm() { return "cctv_register"; }
+    @GetMapping("/register")
+    public String registerForm() {
+        return "cctv_register";
+    }
 
-    @PostMapping("/cctv/register")
+    @PostMapping("/register")
     public String register(@ModelAttribute CctvDTO cctvDTO, HttpServletRequest request) {
         HttpSession httpSession = request.getSession();
         String loginId = (String) httpSession.getAttribute("Id");
@@ -40,7 +39,7 @@ public class CctvController {
         return "main";
     }
 
-    @GetMapping("/cctv/list")
+    @GetMapping("/list")
     public String myCctv(Model model, HttpServletRequest request) {
         HttpSession httpSession = request.getSession();
         String loginId = (String) httpSession.getAttribute("Id");
@@ -52,14 +51,28 @@ public class CctvController {
         return "cctv_list";
     }
 
-    @GetMapping("/cctv/{no}")
-    public String checkCctv(@PathVariable Long no, Model model){
+    @GetMapping("/{no}")
+    public String checkCctv(@PathVariable Long no, Model model) {
         model.addAttribute("no", no);
         return "cctv_check";
     }
 
-    @GetMapping("/cctv/delete/{no}")
-    public String deleteCctv(@PathVariable Long no){
+    @GetMapping("/modify/{no}")
+    public String modifyCctv(@PathVariable Long no, Model model){
+        CctvDTO cctvDTO = cctvService.updateForm(no);
+        model.addAttribute("updateCctv", cctvDTO);
+        return "cctv_update";
+    }
+
+    @PostMapping("/modify/{no}")
+    public String update(@ModelAttribute CctvDTO cctvDTO, HttpSession session) {
+        String loginId = (String) session.getAttribute("Id");
+        cctvService.update(cctvDTO, loginId);
+        return "redirect:/cctv/list";
+    }
+
+    @GetMapping("/delete/{no}")
+    public String deleteCctv(@PathVariable Long no) {
         cctvService.deleteCctv(no);
         return "redirect:/cctv/list";
     }

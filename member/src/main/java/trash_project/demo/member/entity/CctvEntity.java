@@ -38,5 +38,13 @@ public class CctvEntity {
 
         return cctvEntity;
     }
-
+    public static CctvEntity toUpdateCctvEntity(CctvDTO cctvDTO, MemberEntity memberEntity) {
+        CctvEntity cctvEntity = new CctvEntity();
+        cctvEntity.setNo(cctvDTO.getNo());
+        cctvEntity.setCctvAddressStreet(cctvDTO.getCctvAddressStreet());
+        cctvEntity.setCctvAddressDetail(cctvDTO.getCctvAddressDetail());
+        cctvEntity.setCctvAlias(cctvDTO.getCctvAlias());
+        cctvEntity.setMemberEntity(memberEntity);
+        return cctvEntity;
+    }
 }

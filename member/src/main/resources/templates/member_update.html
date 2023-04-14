@@ -1,0 +1,57 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>update</title>-->
+
+<!--</head>-->
+<!--<body>-->
+<!--<h1>비밀번호 변경</h1>-->
+<!--<form action="/member/update" method="post">-->
+<!--    <input type="hidden" th:value="${updateMember.no}" name="no" readonly><br>-->
+<!--    <input type="hidden" th:value="${updateMember.memberName}" name="memberName" readonly> <br>-->
+<!--    새로운 비밀번호: <input type="text" th:value="${updateMember.memberPassword}" name="memberPassword"> <br>-->
+<!--    <input type="hidden" th:value="${updateMember.memberId}" name="memberId" readonly> <br>-->
+<!--    <input type="hidden" th:value="${updateMember.memberEmail}" name="memberEmail" readonly>-->
+<!--    <input type="hidden" th:value="${updateMember.memberPhone}" name="memberPhone" readonly>-->
+<!--    <input type="submit" value="정보수정">-->
+<!--</form>-->
+<!--    <a th:href="@{|/member/delete/${updateMember.no}|}">삭제</a>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>update</title>
+    <style>
+        .bg{
+            background: no-repeat center fixed;
+            background-size: cover;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+</head>
+<body class="bg" style="background-image: url('https://png.pngtree.com/background/20211215/original/pngtree-modern-simple-elegant-landing-page-website-background-picture-image_1455134.jpg')">
+<div class="container mt-5">
+    <h1 class="text-center mb-5">비밀번호 변경</h1>
+    <form action="/member/update" method="post">
+        <input type="hidden" th:value="${updateMember.no}" name="no" readonly>
+        <div class="mb-3">
+            <label for="new-password" class="form-label">새로운 비밀번호</label>
+            <input type="text" th:value="${updateMember.memberPassword}" name="memberPassword" class="form-control" id="new-password">
+        </div>
+        <input type="hidden" th:value="${updateMember.memberName}" name="memberName" readonly>
+        <input type="hidden" th:value="${updateMember.memberId}" name="memberId" readonly>
+        <input type="hidden" th:value="${updateMember.memberEmail}" name="memberEmail" readonly>
+        <input type="hidden" th:value="${updateMember.memberPhone}" name="memberPhone" readonly>
+        <button type="submit" class="btn btn-primary">정보수정</button>
+    </form>
+    <div class="text-center mt-5">
+        <a th:href="@{|/member/delete/${updateMember.no}|}" class="btn btn-danger">회원 탈퇴</a>
+    </div>
+</div>
+</body>
+</html>

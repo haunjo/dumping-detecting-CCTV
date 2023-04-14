@@ -20,72 +20,123 @@
 <!--</body>-->
 <!--</html>-->
 
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Save</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            background-color: #F2F2F2;-->
+<!--            font-family: Arial, sans-serif;-->
+<!--        }-->
+<!--        h1 {-->
+<!--            color: #333;-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--        form {-->
+<!--            background-color: #FFF;-->
+<!--            border: 1px solid #CCC;-->
+<!--            border-radius: 5px;-->
+<!--            padding: 20px;-->
+<!--            margin: 0 auto;-->
+<!--            width: 400px;-->
+<!--        }-->
+<!--        label {-->
+<!--            display: block;-->
+<!--            margin-top: 10px;-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+<!--        input[type="text"], input[type="password"] {-->
+<!--            border: 1px solid #CCC;-->
+<!--            border-radius: 3px;-->
+<!--            font-size: 16px;-->
+<!--            padding: 5px;-->
+<!--            width: 100%;-->
+<!--        }-->
+<!--        input[type="submit"] {-->
+<!--            background-color: #333;-->
+<!--            border: none;-->
+<!--            border-radius: 3px;-->
+<!--            color: #FFF;-->
+<!--            cursor: pointer;-->
+<!--            font-size: 16px;-->
+<!--            margin-top: 10px;-->
+<!--            padding: 10px;-->
+<!--            width: 100%;-->
+<!--        }-->
+<!--        input[type="submit"]:hover {-->
+<!--            background-color: #555;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>회원가입</h1>-->
+<!--<form action="/member/save" method="post">-->
+<!--    <label for="memberId">아이디</label>-->
+<!--    <input type="text" id="memberId" name="memberId" placeholder="아이디 입력" required>-->
+<!--    <label for="memberPassword">비밀번호</label>-->
+<!--    <input type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호 입력" required>-->
+<!--    <label for="memberName">이름</label>-->
+<!--    <input type="text" id="memberName" name="memberName" placeholder="이름 입력" required>-->
+<!--    <label for="memberPhone">핸드폰 번호</label>-->
+<!--    <input type="text" id="memberPhone" name="memberPhone" placeholder="010********" required>-->
+<!--    <label for="memberEmail">이메일</label>-->
+<!--    <input type="text" id="memberEmail" name="memberEmail" placeholder="****@****.com" required>-->
+<!--    <label>인증하기</label>-->
+<!--    <input type="file" multiple="multiple" id="cctvCertification" name="cctvCertification">-->
+<!--    <input type="submit" value="회원가입">-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Save</title>
     <style>
-        body {
-            background-color: #F2F2F2;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        form {
-            background-color: #FFF;
-            border: 1px solid #CCC;
-            border-radius: 5px;
-            padding: 20px;
-            margin: 0 auto;
-            width: 400px;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-        input[type="text"], input[type="password"] {
-            border: 1px solid #CCC;
-            border-radius: 3px;
-            font-size: 16px;
-            padding: 5px;
-            width: 100%;
-        }
-        input[type="submit"] {
-            background-color: #333;
-            border: none;
-            border-radius: 3px;
-            color: #FFF;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-            padding: 10px;
-            width: 100%;
-        }
-        input[type="submit"]:hover {
-            background-color: #555;
+        .bg{
+            background: no-repeat center fixed;
+            background-size: cover;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
 </head>
-<body>
-<h1>회원가입</h1>
-<form action="/member/save" method="post">
-    <label for="memberId">아이디</label>
-    <input type="text" id="memberId" name="memberId" placeholder="아이디 입력" required>
-    <label for="memberPassword">비밀번호</label>
-    <input type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호 입력" required>
-    <label for="memberName">이름</label>
-    <input type="text" id="memberName" name="memberName" placeholder="이름 입력" required>
-    <label for="memberPhone">핸드폰 번호</label>
-    <input type="text" id="memberPhone" name="memberPhone" placeholder="010********" required>
-    <label for="memberEmail">이메일</label>
-    <input type="text" id="memberEmail" name="memberEmail" placeholder="****@****.com" required>
-    <label>인증하기</label>
-    <input type="file" multiple="multiple" id="cctvCertification" name="cctvCertification">
-    <input type="submit" value="회원가입">
-</form>
+<body class="bg" style="background-image: url('https://png.pngtree.com/background/20211215/original/pngtree-modern-simple-elegant-landing-page-website-background-picture-image_1455134.jpg')">
+<div class="container">
+    <h1 class="mt-5 mb-4 text-center">회원가입</h1>
+    <form action="/member/save" method="post" class="row g-3">
+        <div class="col-md-6">
+            <label for="memberId" class="form-label">아이디</label>
+            <input type="text" id="memberId" name="memberId" placeholder="아이디 입력" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+            <label for="memberPassword" class="form-label">비밀번호</label>
+            <input type="password" id="memberPassword" name="memberPassword" placeholder="비밀번호 입력" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+            <label for="memberName" class="form-label">이름</label>
+            <input type="text" id="memberName" name="memberName" placeholder="이름 입력" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+            <label for="memberPhone" class="form-label">핸드폰 번호</label>
+            <input type="text" id="memberPhone" name="memberPhone" placeholder="010********" class="form-control" required>
+        </div>
+        <div class="col-md-12">
+            <label for="memberEmail" class="form-label">이메일</label>
+            <input type="email" id="memberEmail" name="memberEmail" placeholder="****@****.com" class="form-control" required>
+        </div>
+        <div class="col-md-12">
+            <label for="cctvCertification" class="form-label">인증하기</label>
+            <input type="file" multiple="multiple" id="cctvCertification" name="cctvCertification" class="form-control">
+        </div>
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary mt-3">회원가입</button>
+        </div>
+    </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

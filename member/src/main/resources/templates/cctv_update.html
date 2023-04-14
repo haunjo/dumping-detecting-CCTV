@@ -1,0 +1,64 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>cctv_update</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>CCTV 정보 변경</h1>-->
+<!--<form action="/cctv/modify/{no}" method="post">-->
+<!--  <input type="hidden" th:value="${updateCctv.no}" name="no" readonly><br>-->
+<!--  새로운 주소: <input type="text" th:value="${updateCctv.cctvAddressStreet}" name="cctvAddressStreet"> <br>-->
+<!--  새로운 상세주소: <input type="text" th:value="${updateCctv.cctvAddressDetail}" name="cctvAddressDetail"> <br>-->
+<!--  새로운 별칭: <input type="text" th:value="${updateCctv.cctvAlias}" name="cctvAlias"> <br>-->
+<!--  <input type="hidden" th:value="${updateCctv.memberEntity}" name="memberEmail" readonly>-->
+<!--  <input type="submit" value="정보수정">-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>CCTV 정보 변경</title>
+  <style>
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+    .bg{
+      background: no-repeat center fixed;
+      background-size: cover;
+    }
+  </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body class="bg" style="background-image: url('https://png.pngtree.com/background/20211215/original/pngtree-modern-simple-elegant-landing-page-website-background-picture-image_1455134.jpg')">
+<div class="container">
+  <h1 class="mt-5 mb-4">CCTV 정보 변경</h1>
+  <form action="/cctv/modify/{no}" method="post">
+    <input type="hidden" th:value="${updateCctv.no}" name="no" readonly><br>
+    <div class="form-group">
+      <label for="cctvAddressStreet">새로운 주소:</label>
+      <input type="text" class="form-control" th:value="${updateCctv.cctvAddressStreet}" name="cctvAddressStreet" id="cctvAddressStreet">
+    </div>
+    <div class="form-group">
+      <label for="cctvAddressDetail">새로운 상세주소:</label>
+      <input type="text" class="form-control" th:value="${updateCctv.cctvAddressDetail}" name="cctvAddressDetail" id="cctvAddressDetail">
+    </div>
+    <div class="form-group">
+      <label for="cctvAlias">새로운 별칭:</label>
+      <input type="text" class="form-control" th:value="${updateCctv.cctvAlias}" name="cctvAlias" id="cctvAlias">
+    </div>
+    <input type="hidden" th:value="${updateCctv.memberEntity}" name="memberEmail" readonly>
+    <button type="submit" class="btn btn-primary">정보수정</button>
+  </form>
+</div>
+</body>
+
+</html>
+

@@ -1,66 +1,113 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Save</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            background-color: #F2F2F2;-->
+<!--            font-family: Arial, sans-serif;-->
+<!--        }-->
+<!--        h1 {-->
+<!--            color: #333;-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--        form {-->
+<!--            background-color: #FFF;-->
+<!--            border: 1px solid #CCC;-->
+<!--            border-radius: 5px;-->
+<!--            padding: 20px;-->
+<!--            margin: 0 auto;-->
+<!--            width: 400px;-->
+<!--        }-->
+<!--        label {-->
+<!--            display: block;-->
+<!--            margin-top: 10px;-->
+<!--            margin-bottom: 10px;-->
+<!--        }-->
+<!--        input[type="text"], input[type="password"] {-->
+<!--            border: 1px solid #CCC;-->
+<!--            border-radius: 3px;-->
+<!--            font-size: 16px;-->
+<!--            padding: 5px;-->
+<!--            width: 100%;-->
+<!--        }-->
+<!--        input[type="submit"] {-->
+<!--            background-color: #333;-->
+<!--            border: none;-->
+<!--            border-radius: 3px;-->
+<!--            color: #FFF;-->
+<!--            cursor: pointer;-->
+<!--            font-size: 16px;-->
+<!--            margin-top: 10px;-->
+<!--            padding: 10px;-->
+<!--            width: 100%;-->
+<!--        }-->
+<!--        input[type="submit"]:hover {-->
+<!--            background-color: #555;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>CCTV 등록</h1>-->
+<!--<form action="/cctv/register" method="post" enctype="multipart/form-data">-->
+<!--    <label for="cctvAddressStreet">주소</label>-->
+<!--    <input type="text" id="cctvAddressStreet" name="cctvAddressStreet" placeholder="도로명주소 입력" required>-->
+<!--    <label for="cctvAddressDetail">상세주소</label>-->
+<!--    <input type="text" id="cctvAddressDetail" name="cctvAddressDetail" placeholder="상세주소 입력" required>-->
+<!--    <label for="cctvAlias">별칭</label>-->
+<!--    <input type="text" id="cctvAlias" name="cctvAlias" placeholder="cctv 별칭 지정" required>-->
+<!--    <label>인증하기 </label>-->
+<!--    <input type="file" multiple="multiple" id="cctvCertification" name="cctvCertification">-->
+<!--    <input type="submit" value="등록">-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Save</title>
     <style>
-        body {
-            background-color: #F2F2F2;
-            font-family: Arial, sans-serif;
-        }
         h1 {
             color: #333;
             text-align: center;
         }
-        form {
-            background-color: #FFF;
-            border: 1px solid #CCC;
-            border-radius: 5px;
-            padding: 20px;
-            margin: 0 auto;
-            width: 400px;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-        input[type="text"], input[type="password"] {
-            border: 1px solid #CCC;
-            border-radius: 3px;
-            font-size: 16px;
-            padding: 5px;
-            width: 100%;
-        }
-        input[type="submit"] {
-            background-color: #333;
-            border: none;
-            border-radius: 3px;
-            color: #FFF;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-            padding: 10px;
-            width: 100%;
-        }
-        input[type="submit"]:hover {
-            background-color: #555;
+        .bg{
+            background: no-repeat center fixed;
+            background-size: cover;
         }
     </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
-<body>
-<h1>CCTV 등록</h1>
-<form action="/cctv/register" method="post" enctype="multipart/form-data">
-    <label for="cctvAddressStreet">주소</label>
-    <input type="text" id="cctvAddressStreet" name="cctvAddressStreet" placeholder="도로명주소 입력" required>
-    <label for="cctvAddressDetail">상세주소</label>
-    <input type="text" id="cctvAddressDetail" name="cctvAddressDetail" placeholder="상세주소 입력" required>
-    <label for="cctvAlias">별칭</label>
-    <input type="text" id="cctvAlias" name="cctvAlias" placeholder="cctv 별칭 지정" required>
-    <label>인증하기 </label>
-    <input type="file" multiple="multiple" id="cctvCertification" name="cctvCertification">
-    <input type="submit" value="등록">
-    <input type="hidden" name="mid" value="">
-</form>
+<body class="bg" style="background-image: url('https://png.pngtree.com/background/20211215/original/pngtree-modern-simple-elegant-landing-page-website-background-picture-image_1455134.jpg')">
+<div class="container">
+    <h1 class="mt-5 mb-4">CCTV 등록</h1>
+    <form action="/cctv/register" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="cctvAddressStreet">주소</label>
+            <input type="text" class="form-control" id="cctvAddressStreet" name="cctvAddressStreet" placeholder="도로명주소 입력" required>
+        </div>
+        <div class="form-group">
+            <label for="cctvAddressDetail">상세주소</label>
+            <input type="text" class="form-control" id="cctvAddressDetail" name="cctvAddressDetail" placeholder="상세주소 입력" required>
+        </div>
+        <div class="form-group">
+            <label for="cctvAlias">별칭</label>
+            <input type="text" class="form-control" id="cctvAlias" name="cctvAlias" placeholder="cctv 별칭 지정" required>
+        </div>
+        <div class="form-group">
+            <label>인증하기</label>
+            <div class="custom-file">
+                <input type="file" multiple="multiple"  id="cctvCertification" name="cctvCertification">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">등록</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

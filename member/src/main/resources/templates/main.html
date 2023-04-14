@@ -11,42 +11,73 @@
 <!--</body>-->
 <!--</html>-->
 
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>main</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            text-align: center;-->
+<!--            background-color: #f2f2f2;-->
+<!--            font-family: Arial, sans-serif;-->
+<!--        }-->
+
+<!--        h2 {-->
+<!--            color: #333;-->
+<!--            margin-top: 50px;-->
+<!--        }-->
+
+<!--        a {-->
+<!--            display: inline-block;-->
+<!--            padding: 10px 20px;-->
+<!--            background-color: #333;-->
+<!--            color: #fff;-->
+<!--            text-decoration: none;-->
+<!--            border-radius: 5px;-->
+<!--            margin: 20px;-->
+<!--            font-size: 16px;-->
+<!--        }-->
+
+<!--        a:hover {-->
+<!--            background-color: #555;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>회원 페이지</h2>-->
+<!--<a href="/member/update">회원정보 수정</a>-->
+<!--<a href="/cctv/register">CCTV 등록</a>-->
+<!--<a href="/cctv/list">내 CCTV</a>-->
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>main</title>
     <style>
-        body {
-            text-align: center;
-            background-color: #f2f2f2;
-            font-family: Arial, sans-serif;
-        }
-
-        h2 {
-            color: #333;
-            margin-top: 50px;
-        }
-
-        a {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            margin: 20px;
-            font-size: 16px;
-        }
-
-        a:hover {
-            background-color: #555;
+        .bg{
+            background: no-repeat center fixed;
+            background-size: cover;
         }
     </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
-<body>
-<h2>회원 페이지</h2>
-<a href="/cctv/register">CCTV 등록</a>
-<a href="/cctv/list">내 CCTV</a>
+<body class="bg" style="background-image: url('https://png.pngtree.com/background/20211215/original/pngtree-modern-simple-elegant-landing-page-website-background-picture-image_1455134.jpg')">
+<div class="container">
+    <h2 class="my-5 text-center">회원 페이지</h2>
+    <div class="d-flex justify-content-center">
+        <a href="/member/update" class="btn btn-primary mr-3">회원정보 수정</a>
+        <a href="/cctv/register" class="btn btn-secondary mr-3">CCTV 등록</a>
+        <a href="/cctv/list" class="btn btn-secondary mr-3">내 CCTV</a>
+        <a href="/member/logout" class="btn btn-danger">로그아웃</a>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
