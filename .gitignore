@@ -1,6 +1,7 @@
 venv/
 __pycache__/
 *.jpg
+*.png
 .Ds_Store
 *.pt
 data/images/*
