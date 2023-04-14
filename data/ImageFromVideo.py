@@ -1,5 +1,6 @@
 import cv2
 import os
+import base64
 from time import localtime
 from time import strftime
 
@@ -39,13 +40,14 @@ def get_image(path:str):
     
     while(video.isOpened()):
         ret, img = video.read()
-        if(int(video.get(1)) % int(fps/5) == 0): # get an image for each seconds
+        if(int(video.get(1)) % int(fps) == 0): # get an image for each seconds
             tm = localtime()
             capturedtime = strftime('%Y_%m_%d_%H%M%S', tm)
-            cv2.imwrite(f'data/images/{timestamp}/{capturedtime}{str(int(video.get(1)))}.jpg', img)
+            cv2.imwrite(f'images/{timestamp}/{capturedtime}{str(int(video.get(1)))}.jpg', img)
+            data = {"image": img, "filename" : f"{capturedtime}{str(int(video.get(1)))}"}
             print("Saved frame number:" , str(int(video.get(1))))
             count += 1
-            # yield f'data/images/{timestamp}/{capturedtime}.jpg' # yield path of image
+            yield data
         if(ret == False):
             break
     video.release()
