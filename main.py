@@ -12,7 +12,10 @@ import cv2
 #ImageFromVideo.get_image('data/video/2023032319.mov')
 
 # Initialize a class instance
-human_detector = Detector()
+
+
+if __name__ == "__main__":
+    human_detector = Detector()
 dumping_classifier = Classifier()
 
 start = time.time()
