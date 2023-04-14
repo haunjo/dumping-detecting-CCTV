@@ -8,13 +8,11 @@ class Classifier():
         self.model, self.preprocess = clip.load("ViT-B/32", device=self.device)
         
         self.labels = [
-            "Standing",
-            "Running",
-            "Smoking",
-            "Dumping",
-            "Sitting"
+            "throwing away",
+            "not throwing away",
         ]
         self.tokens = torch.cat([clip.tokenize(f"a photo of a person {c}") for c in self.labels]).to(self.device)
+#         self.tokens = torch.cat([clip.tokenize(f"{c}") for c in self.labels]).to(self.device)
 
     def classify(self, source: Image.Image) -> str:
         image = source.resize((32, 32))
@@ -28,12 +26,14 @@ class Classifier():
         image_features /= image_features.norm(dim=-1, keepdim=True)
         text_features /= text_features.norm(dim=-1, keepdim=True)
         similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
-        values, indices = similarity[0].topk(5)
+        values, indices = similarity[0].topk(2)
 
-        # Print the result of top 5 most similar labels
-        print("\nTop predictions:\n")
-        for value, index in zip(values, indices):
-            print(f"{self.labels[index]:>16s}: {100 * value.item():.2f}%")
+#         # Print the result of top 5 most similar labels
+#         s = ""
+#         print("\nTop predictions:\n")
+#         for value, index in zip(values, indices):
+#             s += f"{self.labels[index]:>16s}: {100 * value.item():.2f}%\n"
+#         print(s)
             
-        # Return the most similar label
-        return self.labels[indices[0]]
+        # Return the most similar label's label and probability
+        return (self.labels[indices[0]], 100*values[0].item())
