@@ -12,7 +12,6 @@ class Classifier():
             "not throwing away",
         ]
         self.tokens = torch.cat([clip.tokenize(f"a photo of a person {c}") for c in self.labels]).to(self.device)
-#         self.tokens = torch.cat([clip.tokenize(f"{c}") for c in self.labels]).to(self.device)
 
     def classify(self, source: Image.Image) -> str:
         image = source.resize((32, 32))
