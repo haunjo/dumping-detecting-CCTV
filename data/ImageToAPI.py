@@ -8,7 +8,7 @@ import json
 
 
 
-url =  "http://203.253.13.20:8000/files/"
+url =  "http://haunserver.shop/files/"
 
 
 def VideoToAPI():
