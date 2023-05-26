@@ -21,14 +21,14 @@ human_detector = Detector()
 dumping_classifier = Classifier()
 
 #mysql server 연결
-def connect(content):
+def connect(contents):
     conn = pymysql.connect(
         host='43.200.109.246',
         user='johaun', 
         password='8312', 
         db= 'SCV', 
         charset='utf8')
-    send_mysql('6', content, conn)
+    send_mysql("6", contents, conn)
     conn.close()
 
 app = FastAPI()
@@ -52,6 +52,7 @@ async def create_file(file : Request):
                 #print(cnt, pred, prob, xyxy)
                 return JSONResponse({"filename" : content["filename"], "action" : pred, "prob" : prob/100})
                 # code to save the image in DB
+            print(content["filename"])
             send_s3(pil_image, content["filename"])
             connect(content["filename"])
     return JSONResponse({"filename" : content["filename"], "action" : "None"})

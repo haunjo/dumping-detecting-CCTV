@@ -18,9 +18,13 @@ def VideoToAPI():
         request = {"image": img_str, "filename" : f'{data["filename"]}'}
         response = requests.post(url, data=json.dumps(request))
 def CamToAPI(): 
-    pass
+    for data in ImageFromCam.get_image():
+        _, img_encoded = cv2.imencode('.jpg', data["image"])
+        img_str = base64.b64encode(img_encoded).decode('utf-8')
+        request = {"image": img_str, "filename" : f'{data["filename"]}'}
+        response = requests.post(url, data=json.dumps(request))
 
 if __name__=="__main__":
-    VideoToAPI()
-
+    #VideoToAPI()
+    CamToAPI()
 

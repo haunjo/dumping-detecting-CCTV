@@ -16,7 +16,7 @@ import cv2
 
 if __name__ == "__main__":
     human_detector = Detector()
-dumping_classifier = Classifier()
+    dumping_classifier = Classifier()
 
 start = time.time()
 cnt = 1
@@ -36,5 +36,5 @@ for img_path in os.listdir(path):
                 print(cnt, pred, prob, img_path, xyxy)
                 cnt += 1
                 # code to save the image in DB
-        
+
 print(time.time() - start)
