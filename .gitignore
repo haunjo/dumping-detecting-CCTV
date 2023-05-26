@@ -9,5 +9,5 @@ data/video/*
 *.ipynb
 *.mp4
 *.avi
-data/Send_S3.py
+/docker/app/data/Send_S3.py
 
