@@ -4,8 +4,9 @@ import urllib
 import warnings
 from typing import Any, Union, List
 from pkg_resources import packaging
-
+import io
 import torch
+import redisai as rai
 from PIL import Image
 from torchvision.transforms import Compose, Resize, CenterCrop, ToTensor, Normalize
 from tqdm import tqdm

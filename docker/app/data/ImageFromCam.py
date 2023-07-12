@@ -23,7 +23,7 @@ def get_image():
     except OSError:
         print("Directory is already exists : " + timestamp)
     
-
+    count = 0
     while True:
         ret, img = cam.read()
         if not ret:
@@ -31,13 +31,14 @@ def get_image():
             break
         
         cv2.imshow('CCTV', img)
-        
-        if cv2.waitKey(1000): # 1000ms 
+        if cv2.waitKey(1000): # 1000ms
+            count += 1
             tm = localtime()
-            capturedtime = strftime('%Y_%m_%d_%H%M%S', tm)
-            cv2.imwrite(f'data/images/{timestamp}/{capturedtime}.jpg', img)
-            yield f'data/images/{timestamp}/{capturedtime}.jpg' # yield path of image
-            
+            capturedtime = strftime('%Y%m%d_%H%M%S_', tm)
+            #cv2.imwrite(f'data/images/{timestamp}/{capturedtime}.jpg', img)
+            data = {"image": img, "filename" : f"{capturedtime}{str(count)}"}
+            yield data # yield path of image
+            print("Saved frame number:" , str(count))
         if cv2.waitKey(1000) == ord('q'):
             break
     cam.release()

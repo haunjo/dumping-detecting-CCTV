@@ -1,5 +1,4 @@
 venv/
-
 __pycache__/
 *.jpg
 .Ds_Store
@@ -8,4 +7,7 @@ data/images/*
 data/video/*
 .ipynb_checkpoints/
 *.ipynb
+*.mp4
+*.avi
+/docker/app/data/Send_S3.py
 
