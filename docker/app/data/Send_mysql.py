@@ -5,9 +5,10 @@ import base64
 from PIL import Image
 from io import BytesIO
 
-def send_mysql(cctv_id, filename, conn):
+def send_mysql(cctvid, filename, conn):
     cur = conn.cursor(pymysql.cursors.DictCursor)
-    sql = f"""insert into image(image_filename, cctv_no) values("{cctv_id}_{filename}",{cctv_id});"""
+    print(cctvid, filename)
+    sql = f"""insert into image(image_filename, cctv_no) values("{filename}",{int(cctvid)});"""
     print(sql)
     cur.execute(sql)
     conn.commit()
@@ -23,7 +24,7 @@ if __name__ == "__main__":
     
     try: 
         #send_mysql('6', "123", conn)
-        sql = """select * from image;"""
+        sql = """select * from cctv;"""
         cur = conn.cursor(pymysql.cursors.DictCursor)
         #sql = f"""insert into image(image_filename, cctv_no) values({filename},{cctv_id});"""
         cur.execute(sql)

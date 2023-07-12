@@ -1,11 +1,25 @@
 import torch
 from clip import clip
 from PIL import Image
+import redis as rai
+import ml2rt
+
 
 class Classifier():
     def __init__(self):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        print("CLIP : GPU available")
         self.model, self.preprocess = clip.load("ViT-B/32", device=self.device)
+        
+        # redis_client - rai.Client()
+        
+        # model_tensor = redis_client.tensorget("clip_model_weights")
+        # model_script = ml2rt.rt2torch(model_tensor)
+        # self.model = torch.jit.load(model_script)
+        
+        # self.preprocess = redis_client.get("clip_preprocess")
+        
+        
         
         self.labels = [
             "throwing away",
@@ -14,6 +28,10 @@ class Classifier():
         self.tokens = torch.cat([clip.tokenize(f"a photo of a person {c}") for c in self.labels]).to(self.device)
 #         self.tokens = torch.cat([clip.tokenize(f"{c}") for c in self.labels]).to(self.device)
 
+    def __del__(self):
+        print("장시간 분류기를 사용하지 않아 메모리를 해제합니다")
+        
+        
     def classify(self, source: Image.Image) -> str:
         image = source.resize((32, 32))
         image = self.preprocess(image).unsqueeze(0).to(self.device)

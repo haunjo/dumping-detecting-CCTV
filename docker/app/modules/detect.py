@@ -1,6 +1,7 @@
 import torch
 import numpy as np
-
+import redis
+import ml2rt
 from models.experimental import attempt_load
 from utils.datasets import LoadImages_fromImage
 from utils.general import check_img_size, non_max_suppression, apply_classifier, scale_coords, set_logging
@@ -16,11 +17,19 @@ class Detector():
         self.augment = False  # 'augmented inference'
         self.agnostic_nms = False  # 'class-agnostic NMS'
         set_logging()
-        self.device = select_device('')  # 'cuda device, i.e. 0 or 0,1,2,3 or cpu'
+        self.device = select_device('0')  # 'cuda device, i.e. 0 or 0,1,2,3 or cpu'
         self.half = self.device.type != 'cpu'  # half precision only supported on CUDA
         
         # Load model
-        self.model = attempt_load(self.weights, map_location=self.device)  # load FP32 model
+        # self.model = attempt_load(self.weights, map_location=self.device)
+        # buffer = io.BytesIO()
+        # torch.script(model).save(buffer)
+        # model_bytes = buffer.getvalue()
+        # client = rai.Client(host='redisai', port=6379)
+        # client.modelstore("volov7", 'TORCH', 'cpu', model_bytes)
+        # load FP32 model
+        # r = redis.Redis(host='redis', port=6379)
+        
         self.stride = int(self.model.stride.max())  # model stride
         self.imgsz = check_img_size(self.imgsz, s=self.stride)  # check img_size
         
@@ -40,6 +49,10 @@ class Detector():
             self.model(torch.zeros(1, 3, self.imgsz, self.imgsz).to(self.device).type_as(next(self.model.parameters())))  # run once
         self.old_img_w = self.old_img_h = self.imgsz
         self.old_img_b = 1
+        
+    def __del__(self):
+        print("장시간 분류기를 사용하지 않아 메모리를 해제합니다")
+
         
     def detect(self, source: np.ndarray) -> torch.Tensor:
         # Set Dataloader
