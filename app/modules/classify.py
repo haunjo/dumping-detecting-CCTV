@@ -1,9 +1,6 @@
 import torch
 from clip import clip
 from PIL import Image
-import redis as rai
-import ml2rt
-
 
 class Classifier():
     def __init__(self):
@@ -22,8 +19,11 @@ class Classifier():
         
         
         self.labels = [
-            "throwing away",
-            "not throwing away",
+            'putting something', 
+            'walking', 
+            'throwing someting', 
+            'dumping something', 
+            'holding something'
         ]
         self.tokens = torch.cat([clip.tokenize(f"a photo of a person {c}") for c in self.labels]).to(self.device)
 #         self.tokens = torch.cat([clip.tokenize(f"{c}") for c in self.labels]).to(self.device)

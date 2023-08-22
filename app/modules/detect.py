@@ -1,7 +1,5 @@
 import torch
 import numpy as np
-import redis
-import ml2rt
 from models.experimental import attempt_load
 from utils.datasets import LoadImages_fromImage
 from utils.general import check_img_size, non_max_suppression, apply_classifier, scale_coords, set_logging
@@ -21,7 +19,7 @@ class Detector():
         self.half = self.device.type != 'cpu'  # half precision only supported on CUDA
         
         # Load model
-        # self.model = attempt_load(self.weights, map_location=self.device)
+        self.model = attempt_load(self.weights, map_location=self.device)
         # buffer = io.BytesIO()
         # torch.script(model).save(buffer)
         # model_bytes = buffer.getvalue()

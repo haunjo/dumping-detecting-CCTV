@@ -1,0 +1,54 @@
+version: "3.7"
+services:
+  nginx:
+    image: nginx
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - fastapi1
+      - fastapi2
+    networks:
+      - my_network
+
+  redisai:
+    image: redislabs/redisai
+    networks:
+      - my_network
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./app/models/yolov7.pt:/models/yolov7.pt
+      - ./app/models/ViT-B-32.pt:/models/ViT-B-32.pt
+
+
+  fastapi1:
+    build:
+      context: .
+      dockerfile: dockerfile
+      args:
+        - LIBGL_PATH=/usr/lib/x86_64-linux-gnu/libGL.so.1
+    
+    ports:
+      - "8001:8000"
+    depends_on:
+      - redisai
+    networks:
+      - my_network
+
+  fastapi2:
+    build:
+      context: .
+      dockerfile: dockerfile
+      args:
+        - LIBGL_PATH=/usr/lib/x86_64-linux-gnu/libGL.so.1
+    
+    ports:
+      - "8002:8000"
+    depends_on:
+      - redisai
+    networks:
+      - my_network
+networks:
+  my_network:
