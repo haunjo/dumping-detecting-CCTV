@@ -19,15 +19,7 @@ class Detector():
         self.half = self.device.type != 'cpu'  # half precision only supported on CUDA
         
         # Load model
-        self.model = attempt_load(self.weights, map_location=self.device)
-        # buffer = io.BytesIO()
-        # torch.script(model).save(buffer)
-        # model_bytes = buffer.getvalue()
-        # client = rai.Client(host='redisai', port=6379)
-        # client.modelstore("volov7", 'TORCH', 'cpu', model_bytes)
-        # load FP32 model
-        # r = redis.Redis(host='redis', port=6379)
-        
+        self.model = attempt_load(self.weights, map_location=self.device)  # load FP32 model
         self.stride = int(self.model.stride.max())  # model stride
         self.imgsz = check_img_size(self.imgsz, s=self.stride)  # check img_size
         

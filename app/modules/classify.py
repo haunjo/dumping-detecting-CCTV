@@ -1,6 +1,7 @@
 import torch
 from clip import clip
 from PIL import Image
+import numpy as np
 
 class Classifier():
     def __init__(self):
@@ -15,8 +16,6 @@ class Classifier():
         # self.model = torch.jit.load(model_script)
         
         # self.preprocess = redis_client.get("clip_preprocess")
-        
-        
         
         self.labels = [
             'putting something', 
@@ -33,18 +32,20 @@ class Classifier():
         
         
     def classify(self, source: Image.Image) -> str:
-        image = source.resize((32, 32))
-        image = self.preprocess(image).unsqueeze(0).to(self.device)
+        image = self.preprocess(source).unsqueeze(0).to(self.device)
 
         with torch.no_grad():
             image_features = self.model.encode_image(image)
             text_features = self.model.encode_text(self.tokens)
 
+            logits_per_image, logits_per_text = self.model(image, self.tokens) 
+            probs = logits_per_image.softmax(dim=-1).cpu().numpy()
+
         # Pick the top 5 most similar labels for the image
-        image_features /= image_features.norm(dim=-1, keepdim=True)
-        text_features /= text_features.norm(dim=-1, keepdim=True)
-        similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
-        values, indices = similarity[0].topk(2)
+        # image_features /= image_features.norm(dim=-1, keepdim=True)
+        # text_features /= text_features.norm(dim=-1, keepdim=True)
+        # similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
+        # values, indices = similarity[0].topk(2)
 
 #         # Print the result of top 5 most similar labels
 #         s = ""
@@ -54,4 +55,6 @@ class Classifier():
 #         print(s)
             
         # Return the most similar label's label and probability
-        return (self.labels[indices[0]], 100*values[0].item())
+        probs= probs*100
+        probs = np.round(probs, decimals=2)
+        return probs

@@ -32,7 +32,7 @@ def get_image(path:str):
     timestamp = strftime('%Y_%m_%d_%H', currunt_time)
     try:
         if not os.path.exists(timestamp):
-            os.makedirs("data/images/"+timestamp)
+            os.makedirs("images/"+timestamp)
     except OSError:
         print("Directory is already exists : " + timestamp)
     
@@ -43,12 +43,15 @@ def get_image(path:str):
         if(int(video.get(1)) % int(fps) == 0): # get an image for each seconds
             tm = localtime()
             capturedtime = strftime('%Y%m%d_%H%M%S_', tm)
-            cv2.imwrite(f'images/{timestamp}/{capturedtime}{str(int(video.get(1)))}.jpg', img)
-            data = {"image": img, "filename" : f"{capturedtime}{str(int(video.get(1)))}"}
+            #cv2.imwrite(f'images/{timestamp}/{capturedtime}{str(int(video.get(1)))}.jpg', img)
+            #data = {"image": img, "filename" : f"{capturedtime}{str(int(video.get(1)))}"}
+            cv2.imwrite(f'images/{timestamp}/{str(int(video.get(1)))}.jpg', img)
             print("Saved frame number:" , str(int(video.get(1))))
             count += 1
-            yield data
         if(ret == False):
             break
     video.release()
 
+if __name__ == "__main__":
+    print("start")
+    get_image("dumping.mp4")
